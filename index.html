@@ -8,132 +8,90 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   min-height:100vh;
   background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-  display:flex;
-  justify-content:center;
   font-family:'Dancing Script',cursive;
   overflow-x:hidden;
-  overflow-y:auto;
 }
 
-/* Floating hearts */
+/* hearts */
 .heart{
   position:fixed;
   bottom:-20px;
   font-size:18px;
+  opacity:.6;
   animation:float 8s linear infinite;
-  opacity:.7;
 }
 @keyframes float{
   to{transform:translateY(-120vh);opacity:0}
 }
 
-/* Card */
+/* card */
 .card{
   background:#fff;
-  width:92%;
+  width:90%;
   max-width:380px;
-  padding:24px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:0 20px 45px rgba(0,0,0,.25);
   margin:40px auto;
+  padding:24px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
 }
 .hidden{display:none}
 
 button{
+  margin-top:18px;
+  padding:10px 26px;
+  border:none;
+  border-radius:22px;
   background:#ff4d6d;
   color:#fff;
-  border:none;
-  padding:10px 25px;
-  border-radius:25px;
   font-size:16px;
-  margin-top:18px;
-  cursor:pointer;
 }
 
 input{
-  padding:10px;
   width:90%;
+  padding:10px;
   font-size:16px;
-  margin-top:10px;
+  margin-top:12px;
 }
 
-/* Countdown */
+/* countdown */
 #countdown{
   font-size:18px;
-  font-weight:bold;
-  margin-top:10px;
+  margin-top:12px;
 }
 
-/* Envelope */
-.envelope{
-  width:260px;
-  height:170px;
-  margin:20px auto;
-  position:relative;
-  cursor:pointer;
-}
-.env-back{width:100%;height:100%;background:#f7c5cc;border-radius:10px}
-.env-flap{
-  position:absolute;top:0;width:100%;height:50%;
-  background:#f2a6b3;
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top;
-  transition:1s;
-}
-.open .env-flap{transform:rotateX(180deg)}
-.env-seal{
-  position:absolute;top:65px;left:50%;
-  transform:translateX(-50%);
-  width:40px;height:40px;
-  background:#ff4d6d;border-radius:50%;
-  color:#fff;
-  display:flex;align-items:center;justify-content:center;
-}
-
-/* Letter (mobile safe) */
-.letter-paper{
-  position:absolute;
-  bottom:8px;
-  left:10px;
-  width:240px;
-  background:#fffdf8;
-  padding:16px;
-  overflow-y:auto;
-  transition:1s;
-  max-height:0;
-  border-radius:6px;
-}
-.open .letter-paper{
-  max-height:65vh;
+/* LETTER (NO HEIGHT LIMIT — FIXED) */
+.letter-box{
+  background:#fffaf2;
+  padding:22px;
+  margin-top:20px;
+  border-radius:12px;
+  box-shadow:inset 0 0 12px rgba(0,0,0,.1);
 }
 
 .letter{
   font-size:18px;
   line-height:1.9;
-  margin-top:35px;
   white-space:pre-line;
 }
 
-/* Gallery */
+/* photos */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:14px;
-  margin-top:15px;
-  max-height:340px;
-  overflow-y:auto;
+  margin-top:18px;
 }
 
 .polaroid{
-  background:white;
+  background:#fff;
   padding:8px 8px 18px;
-  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  box-shadow:0 8px 18px rgba(0,0,0,.25);
   transform:rotate(-2deg);
 }
 .polaroid:nth-child(even){transform:rotate(2deg)}
@@ -147,7 +105,7 @@ input{
   cursor:pointer;
 }
 
-/* Zoom */
+/* zoom */
 .zoom{
   position:fixed;
   inset:0;
@@ -162,57 +120,48 @@ input{
 
 <body>
 
-<!-- Screen 1 -->
+<!-- SCREEN 1 -->
 <div class="card" id="s1">
   <h2>🎂 Sejal’s Birthday Countdown ❤️</h2>
   <div id="countdown"></div>
   <button onclick="go(2)">Next</button>
 </div>
 
-<!-- Screen 2 -->
+<!-- SCREEN 2 -->
 <div class="card hidden" id="s2">
   <h2>🔐 Enter Password</h2>
   <input id="pass" type="password" placeholder="Password">
   <button onclick="check()">Unlock ❤️</button>
 </div>
 
-<!-- Screen 3 -->
+<!-- SCREEN 3 -->
 <div class="card hidden" id="s3">
   <h2>💌 For You</h2>
-  <p>Tap the envelope</p>
 
-  <div class="envelope" id="env" onclick="openLetter()">
-    <div class="env-back"></div>
-    <div class="env-flap"></div>
-    <div class="env-seal">❤️</div>
-
-    <div class="letter-paper">
-      <div class="letter" id="inkText">
+  <div class="letter-box">
+    <div class="letter" id="inkText">
 Happy Birthday Sejal ❤️
 
 You make my world softer,
 my days brighter,
 and my heart calmer.
 
-From the smallest smiles
-to the biggest dreams,
-every moment with you
-feels special.
+From small moments to big dreams,
+everything feels special with you.
 
 No matter where life takes us,
-I promise to choose you,
-again and again.
+I promise to stand by you
+and choose you every single day.
 
 Always yours,
 — Soham ❤️
-      </div>
     </div>
   </div>
 
-  <button id="nextBtn" class="hidden" onclick="go(4)">Next</button>
+  <button onclick="go(4)">Next</button>
 </div>
 
-<!-- Screen 4 -->
+<!-- SCREEN 4 -->
 <div class="card hidden" id="s4">
   <h2>📸 Our Memories</h2>
   <div class="gallery">
@@ -230,7 +179,7 @@ Always yours,
 </div>
 
 <script>
-/* Hearts */
+/* hearts */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -240,50 +189,45 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),8000);
 },500);
 
-/* Countdown */
+/* countdown */
 const b=new Date("December 24, 2025 00:00:00").getTime();
 setInterval(()=>{
   const d=b-Date.now();
   countdown.innerHTML=d<=0
-    ?"🎉 Happy Birthday Sejal 🎉"
-    :Math.floor(d/86400000)+" Days "+
-     Math.floor(d/3600000%24)+" Hours "+
-     Math.floor(d/60000%60)+" Minutes "+
-     Math.floor(d/1000%60)+" Seconds";
+   ?"🎉 Happy Birthday Sejal 🎉"
+   :Math.floor(d/86400000)+" Days "+
+    Math.floor(d/3600000%24)+" Hours "+
+    Math.floor(d/60000%60)+" Minutes "+
+    Math.floor(d/1000%60)+" Seconds";
 },1000);
 
-/* Navigation */
-function go(x){
+/* navigation */
+function go(n){
   [s1,s2,s3,s4].forEach(e=>e.classList.add("hidden"));
-  document.getElementById("s"+x).classList.remove("hidden");
+  document.getElementById("s"+n).classList.remove("hidden");
+  if(n===3) ink();
 }
 
-/* Password */
+/* password */
 function check(){
   pass.value==="sejal24" ? go(3) : alert("Wrong password");
 }
 
-/* Letter + Ink */
-function openLetter(){
-  env.classList.add("open");
-  nextBtn.classList.remove("hidden");
-  startInk();
-}
-
-function startInk(){
+/* ink effect */
+function ink(){
   const el=document.getElementById("inkText");
-  const text=el.innerText;
+  const t=el.innerText;
   el.innerText="";
   let i=0;
-  (function write(){
-    if(i<text.length){
-      el.innerText+=text[i++];
-      setTimeout(write,45);
+  (function w(){
+    if(i<t.length){
+      el.innerText+=t[i++];
+      setTimeout(w,45);
     }
   })();
 }
 
-/* Zoom */
+/* zoom */
 function zoom(img){
   zoomImg.src=img.src;
   zoomBox.style.display="flex";
