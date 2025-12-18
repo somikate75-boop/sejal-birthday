@@ -20,7 +20,7 @@ body{
   overflow:hidden;
 }
 
-/* FLOATING HEARTS */
+/* HEARTS */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -35,8 +35,9 @@ body{
 /* CARD */
 .card{
   background:#fff;
-  width:380px;
-  padding:28px;
+  width:92%;
+  max-width:380px;
+  padding:24px;
   border-radius:20px;
   text-align:center;
   box-shadow:0 20px 45px rgba(0,0,0,.25);
@@ -93,27 +94,28 @@ input{
   color:#fff;display:flex;align-items:center;justify-content:center;
 }
 
-/* LETTER */
+/* LETTER (FIXED FOR MOBILE) */
 .letter-paper{
   position:absolute;
-  bottom:10px;
+  bottom:8px;
   left:10px;
   width:240px;
-  height:0;
   background:#fffdf8;
-  padding:15px;
+  padding:16px;
   overflow-y:auto;
   transition:1s;
-  max-height:70vh;
+  max-height:0;
+  border-radius:6px;
 }
-.open .letter-paper{height:360px}
+.open .letter-paper{
+  max-height:65vh;   /* 🔥 KEY FIX */
+}
 
 .letter{
   font-size:18px;
   line-height:1.9;
-  margin-top:40px;
+  margin-top:35px;
   white-space:pre-line;
-  overflow:hidden;
 }
 
 /* PHOTOS */
@@ -122,27 +124,25 @@ input{
   grid-template-columns:repeat(2,1fr);
   gap:14px;
   margin-top:15px;
-  max-height:300px;
+  max-height:320px;
   overflow-y:auto;
-  padding-right:5px;
 }
 
-/* POLAROID FIX */
 .polaroid{
   background:white;
   padding:8px 8px 18px;
   box-shadow:0 8px 20px rgba(0,0,0,.25);
   transform:rotate(-2deg);
-  cursor:pointer;
 }
 .polaroid:nth-child(even){transform:rotate(2deg)}
 
 .polaroid img{
   width:100%;
-  height:160px;          /* FIXED HEIGHT */
-  object-fit:contain;   /* PREVENT ZOOM */
-  border-radius:4px;
+  height:160px;
+  object-fit:contain;
   background:#f8f8f8;
+  border-radius:4px;
+  cursor:pointer;
 }
 
 /* ZOOM */
@@ -153,31 +153,24 @@ input{
   align-items:center;
   justify-content:center;
 }
-.zoom img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:10px;
-}
+.zoom img{max-width:90%;max-height:90%}
 </style>
 </head>
 
 <body>
 
-<!-- SCREEN 1 -->
 <div class="card" id="s1">
   <h2>🎂 Sejal’s Birthday Countdown ❤️</h2>
   <div id="countdown"></div>
   <button onclick="go(2)">Next</button>
 </div>
 
-<!-- SCREEN 2 -->
 <div class="card hidden" id="s2">
   <h2>🔐 Enter Password</h2>
   <input id="pass" type="password" placeholder="Password">
   <button onclick="check()">Unlock ❤️</button>
 </div>
 
-<!-- SCREEN 3 -->
 <div class="card hidden" id="s3">
   <h2>💌 For You</h2>
   <p>Tap the envelope</p>
@@ -191,14 +184,13 @@ input{
       <div class="letter" id="inkText">
 Happy Birthday Sejal ❤️
 
-From the moment you entered my life,
-everything started feeling lighter and warmer.
-You make ordinary moments special
-just by being you.
+You make my world softer,
+my days brighter,
+and my heart calmer.
 
-No matter what comes our way,
-I promise to stand by you
-and choose you every single day.
+No matter where life takes us,
+I’ll always choose you,
+again and again.
 
 Always yours,
 — Soham ❤️
@@ -209,7 +201,6 @@ Always yours,
   <button id="nextBtn" class="hidden" onclick="go(4)">Next</button>
 </div>
 
-<!-- SCREEN 4 -->
 <div class="card hidden" id="s4">
   <h2>📸 Our Memories</h2>
   <div class="gallery">
@@ -227,7 +218,6 @@ Always yours,
 </div>
 
 <script>
-/* HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -237,7 +227,6 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),8000);
 },500);
 
-/* COUNTDOWN */
 const b=new Date("December 24, 2025 00:00:00").getTime();
 setInterval(()=>{
   const d=b-Date.now();
@@ -249,39 +238,34 @@ setInterval(()=>{
      Math.floor(d/1000%60)+" Seconds";
 },1000);
 
-/* NAV */
 function go(x){
   [s1,s2,s3,s4].forEach(e=>e.classList.add("hidden"));
   document.getElementById("s"+x).classList.remove("hidden");
 }
 
-/* PASSWORD */
 function check(){
   pass.value==="sejal24" ? go(3) : alert("Wrong password");
 }
 
-/* LETTER */
 function openLetter(){
   env.classList.add("open");
   nextBtn.classList.remove("hidden");
   startInk();
 }
 
-/* INK */
 function startInk(){
   const el=document.getElementById("inkText");
-  const text=el.innerText;
+  const t=el.innerText;
   el.innerText="";
   let i=0;
-  (function write(){
-    if(i<text.length){
-      el.innerText+=text[i++];
-      setTimeout(write,45);
+  (function w(){
+    if(i<t.length){
+      el.innerText+=t[i++];
+      setTimeout(w,45);
     }
   })();
 }
 
-/* ZOOM */
 function zoom(img){
   zoomImg.src=img.src;
   zoomBox.style.display="flex";
