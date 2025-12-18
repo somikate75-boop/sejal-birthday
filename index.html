@@ -17,7 +17,7 @@ body{
   overflow-x:hidden;
 }
 
-/* hearts */
+/* Floating hearts */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -29,7 +29,7 @@ body{
   to{transform:translateY(-120vh);opacity:0}
 }
 
-/* card */
+/* Card */
 .card{
   background:#fff;
   width:90%;
@@ -59,13 +59,13 @@ input{
   margin-top:12px;
 }
 
-/* countdown */
+/* Countdown */
 #countdown{
   font-size:18px;
   margin-top:12px;
 }
 
-/* LETTER (NO HEIGHT LIMIT — FIXED) */
+/* Letter */
 .letter-box{
   background:#fffaf2;
   padding:22px;
@@ -80,7 +80,7 @@ input{
   white-space:pre-line;
 }
 
-/* photos */
+/* Photos – NO HEIGHT LIMIT, NO SCROLL */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -105,7 +105,7 @@ input{
   cursor:pointer;
 }
 
-/* zoom */
+/* Zoom */
 .zoom{
   position:fixed;
   inset:0;
@@ -120,21 +120,21 @@ input{
 
 <body>
 
-<!-- SCREEN 1 -->
+<!-- Screen 1 -->
 <div class="card" id="s1">
   <h2>🎂 Sejal’s Birthday Countdown ❤️</h2>
   <div id="countdown"></div>
   <button onclick="go(2)">Next</button>
 </div>
 
-<!-- SCREEN 2 -->
+<!-- Screen 2 -->
 <div class="card hidden" id="s2">
   <h2>🔐 Enter Password</h2>
   <input id="pass" type="password" placeholder="Password">
   <button onclick="check()">Unlock ❤️</button>
 </div>
 
-<!-- SCREEN 3 -->
+<!-- Screen 3 -->
 <div class="card hidden" id="s3">
   <h2>💌 For You</h2>
 
@@ -161,7 +161,7 @@ Always yours,
   <button onclick="go(4)">Next</button>
 </div>
 
-<!-- SCREEN 4 -->
+<!-- Screen 4 -->
 <div class="card hidden" id="s4">
   <h2>📸 Our Memories</h2>
   <div class="gallery">
@@ -179,7 +179,7 @@ Always yours,
 </div>
 
 <script>
-/* hearts */
+/* Hearts */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -189,7 +189,7 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),8000);
 },500);
 
-/* countdown */
+/* Countdown */
 const b=new Date("December 24, 2025 00:00:00").getTime();
 setInterval(()=>{
   const d=b-Date.now();
@@ -201,19 +201,19 @@ setInterval(()=>{
     Math.floor(d/1000%60)+" Seconds";
 },1000);
 
-/* navigation */
+/* Navigation */
 function go(n){
   [s1,s2,s3,s4].forEach(e=>e.classList.add("hidden"));
   document.getElementById("s"+n).classList.remove("hidden");
   if(n===3) ink();
 }
 
-/* password */
+/* Password */
 function check(){
   pass.value==="sejal24" ? go(3) : alert("Wrong password");
 }
 
-/* ink effect */
+/* Ink effect */
 function ink(){
   const el=document.getElementById("inkText");
   const t=el.innerText;
@@ -227,7 +227,7 @@ function ink(){
   })();
 }
 
-/* zoom */
+/* Zoom */
 function zoom(img){
   zoomImg.src=img.src;
   zoomBox.style.display="flex";
