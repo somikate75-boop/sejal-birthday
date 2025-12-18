@@ -20,7 +20,7 @@ body{
   overflow:hidden;
 }
 
-/* HEARTS */
+/* FLOATING HEARTS */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -95,12 +95,16 @@ input{
 
 /* LETTER */
 .letter-paper{
-  position:absolute;bottom:10px;left:10px;
-  width:240px;height:0;
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  width:240px;
+  height:0;
   background:#fffdf8;
   padding:15px;
   overflow-y:auto;
   transition:1s;
+  max-height:70vh; /* MOBILE FIX */
 }
 .open .letter-paper{height:360px}
 
@@ -118,14 +122,11 @@ input{
   grid-template-columns:repeat(2,1fr);
   gap:14px;
   margin-top:15px;
-  max-height:300px;      /* FIX */
-  overflow-y:auto;       /* FIX */
+  max-height:300px;
+  overflow-y:auto;
   padding-right:5px;
 }
-
-.gallery::-webkit-scrollbar{
-  width:6px;
-}
+.gallery::-webkit-scrollbar{width:6px}
 .gallery::-webkit-scrollbar-thumb{
   background:#ffb3c1;
   border-radius:10px;
@@ -150,6 +151,15 @@ input{
   justify-content:center;
 }
 .zoom img{max-width:90%;max-height:90%;border-radius:10px}
+
+/* MOBILE IMPROVEMENT */
+@media(max-width:600px){
+  .card{width:95%}
+  .letter-paper{
+    width:90%;
+    left:5%;
+  }
+}
 </style>
 </head>
 
@@ -182,12 +192,34 @@ input{
     <div class="letter-paper">
       <div class="letter" id="inkText">
 Happy Birthday Sejal ❤️
-You make my world warmer,
-my days brighter,
-and my heart calmer.
 
-Always yours 💖
-— Soham
+From the moment you entered my life,
+everything started feeling lighter and warmer.
+You have this beautiful way of making
+ordinary moments feel special.
+
+Your smile gives me peace,
+your presence gives me strength,
+and your love gives me purpose.
+
+No matter what life throws at us,
+I promise to stand by you,
+to support you,
+and to choose you every single day.
+
+On your birthday, I just want you to know
+how deeply grateful I am for you,
+for your kindness,
+and for the love you give so effortlessly.
+
+May this year bring you happiness,
+success, laughter,
+and everything your heart desires.
+
+Happy Birthday once again, my love 💖
+
+Always yours,
+— Soham ❤️
       </div>
     </div>
   </div>
@@ -253,7 +285,7 @@ function openLetter(){
   nextBtn.classList.remove("hidden");
 }
 
-/* INK */
+/* INK EFFECT */
 function startInk(){
   const el=document.getElementById("inkText");
   const text=el.innerText;
